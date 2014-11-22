@@ -1,6 +1,9 @@
 #include <pebble.h>
+extern Window* MainWindowCreate();
+extern void MainWindowDestroy();
 
 static Window *window;
+#if 0
 static TextLayer *text_layer;
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -34,20 +37,23 @@ static void window_load(Window *window) {
 static void window_unload(Window *window) {
   text_layer_destroy(text_layer);
 }
+#endif
 
 static void init(void) {
-  window = window_create();
-  window_set_click_config_provider(window, click_config_provider);
-  window_set_window_handlers(window, (WindowHandlers) {
-    .load = window_load,
-    .unload = window_unload,
-  });
+  //window = window_create();
+  //window_set_click_config_provider(window, click_config_provider);
+  //window_set_window_handlers(window, (WindowHandlers) {
+  //  .load = window_load,
+  //  .unload = window_unload,
+  //});
+  window = MainWindowCreate();
   const bool animated = true;
   window_stack_push(window, animated);
 }
 
 static void deinit(void) {
-  window_destroy(window);
+  MainWindowDestroy();
+  //window_destroy(window);
 }
 
 int main(void) {
